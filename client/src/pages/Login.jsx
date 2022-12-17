@@ -1,9 +1,66 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { Slide, toast } from 'react-toastify';
+import { login, reset } from '../redux/auth/authSlice';
+import Loading from '../components/Loading';
 
 import image from '../utils/signin-image.jpg';
 
 const Login = () => {
+  const [loginData, setLoginData] = useState({
+    email: '',
+    password: '',
+  });
+
+  const { email, password } = loginData;
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const { user, isLoading, isError, isSuccess, message } = useSelector(
+    (state) => state.auth
+  );
+
+  const handleChange = (e) => {
+    setLoginData((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(message, {
+        transition: Slide,
+        theme: 'colored',
+      });
+    }
+
+    if (isSuccess) {
+      navigate('/');
+    }
+
+    dispatch(reset());
+  }, [user, isError, isSuccess, message, navigate, dispatch]);
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    const userData = {
+      email,
+      password,
+    };
+
+    dispatch(login(userData));
+  };
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
   return (
     <div className='flex flex-row'>
       <div className='basis-full sm:basis-3/4'>
@@ -22,6 +79,8 @@ const Login = () => {
                     name='email'
                     className='relative block w-full appearance-none p-3  rounded-lg border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm  '
                     placeholder='Enter email'
+                    value={email}
+                    onChange={handleChange}
                   />
                 </div>
               </div>
@@ -34,17 +93,20 @@ const Login = () => {
                     name='password'
                     className='relative block w-full appearance-none p-3  rounded-lg border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm'
                     placeholder='Enter password'
+                    value={password}
+                    onChange={handleChange}
                   />
                 </div>
               </div>
-              <Link to='/'>
-                <button
-                  type='submit'
-                  className='block w-full px-5 py-3 text-sm font-medium text-white bg-indigo-600 rounded-lg mt-5 '
-                >
-                  Sign in
-                </button>
-              </Link>
+
+              <button
+                type='submit'
+                className='block w-full px-5 py-3 text-sm font-medium text-white bg-indigo-600 rounded-lg mt-5 '
+                onClick={handleLogin}
+              >
+                Sign in
+              </button>
+
               <div className='flex justify-between'>
                 <p className='text-xs sm:text-sm text-center text-gray-500 cursor-pointer'>
                   <span className='undeline'>Forgot password?</span>
