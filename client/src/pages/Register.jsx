@@ -54,14 +54,18 @@ const Register = () => {
   const handleRegister = (e) => {
     e.preventDefault();
 
-    const userData = {
-      email,
-      username,
-      password,
-      image,
-    };
+    if (password !== cpassword) {
+      toast.error('Password do not Match');
+    } else {
+      const userData = {
+        email,
+        username,
+        password,
+        image,
+      };
 
-    dispatch(register(userData));
+      dispatch(register(userData));
+    }
   };
 
   if (isLoading) {
