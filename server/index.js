@@ -3,8 +3,10 @@ import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
+import multer from 'multer';
 
 import userRoute from './routes/userRoute.js';
+import { register } from './controller/authController.js';
 
 const app = express();
 dotenv.config();
@@ -23,6 +25,17 @@ const connectToDB = async () => {
     console.log(err);
   }
 };
+
+//setting the file storage
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './public/assets');
+  },
+});
+
+const upload = multer({ storage });
+
+app.post('/api/auth/register', upload.single('picture'), register);
 
 //routers
 app.use('/api/auth', userRoute);
