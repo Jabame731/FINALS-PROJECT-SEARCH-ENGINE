@@ -18,22 +18,19 @@ export const login = async (req, res, next) => {
     if (!isPasswordCorrect)
       return next(createError(400, 'Invalid credentials'));
 
-    const token = jwt.sign(
-      {
-        email: user.email,
-        id: user._id,
-      },
-      process.env.JWT
-    );
+    //generate token
+    const generateToken = (id) => {
+      return jwt.sign({ id }, process.env.JWT_SECRET, {
+        expiresIn: '5hr',
+      });
+    };
 
-    const { password, ...otherDetails } = user._doc;
-
-    res
-      .cookie('access_token', token, {
-        httpOnly: true,
-      })
-      .status(200)
-      .json({ details: { ...otherDetails } });
+    res.status(200).json({
+      _id: user.id,
+      name: user.name,
+      email: user.email,
+      token: generateToken(user._id),
+    });
   } catch (error) {
     next(error);
   }
@@ -41,7 +38,15 @@ export const login = async (req, res, next) => {
 
 export const register = async (req, res, next) => {
   try {
-    const { username, image, email, password } = req.body;
+    const { name, image, email, password } = req.body;
+
+    const capitalizedFirsLetter = (str) => {
+      const capitalized = str.charAt(0).toUpperCase() + str.slice(1);
+
+      return capitalized;
+    };
+
+    const makeFirstLetterCapitalized = capitalizedFirsLetter(name);
 
     const existingUser = await User.findOne({ email });
 
@@ -51,7 +56,9 @@ export const register = async (req, res, next) => {
     const hash = bcrypt.hashSync(req.body.password, salt);
 
     const newUserRegistered = new User({
-      ...req.body,
+      name: makeFirstLetterCapitalized,
+      image,
+      email,
       password: hash,
     });
 
