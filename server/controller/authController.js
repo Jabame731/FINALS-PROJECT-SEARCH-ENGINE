@@ -66,8 +66,9 @@ export const register = async (req, res, next) => {
 
     res.status(200).json({
       _id: newUserRegistered.id,
-      username: newUserRegistered.username,
+      name: newUserRegistered.name,
       email: newUserRegistered.email,
+      password: newUserRegistered.password,
     });
   } catch (error) {
     next(error);
