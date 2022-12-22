@@ -13,13 +13,13 @@ import Loading from '../components/Loading';
 const Register = () => {
   const [registerData, setRegisteredData] = useState({
     email: '',
-    username: '',
+    name: '',
     password: '',
     cpassword: '',
     image: '',
   });
 
-  const { email, username, password, cpassword, image } = registerData;
+  const { email, name, password, cpassword, image } = registerData;
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -59,7 +59,7 @@ const Register = () => {
     } else {
       const userData = {
         email,
-        username,
+        name,
         password,
         image,
       };
@@ -95,15 +95,15 @@ const Register = () => {
               </div>
             </div>
             <div>
-              <label className='text-sm font-medium'>Username</label>
+              <label className='text-sm font-medium'>Name</label>
               <div className='relative mt-1'>
                 <input
                   type='text'
-                  id='username'
-                  name='username'
+                  id='name'
+                  name='name'
                   className='relative block w-full appearance-none p-3  rounded-lg border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm  '
-                  placeholder='Enter username'
-                  value={username}
+                  placeholder='Enter name'
+                  value={name}
                   onChange={handleChange}
                 />
               </div>
