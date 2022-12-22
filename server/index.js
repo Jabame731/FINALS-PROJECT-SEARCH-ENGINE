@@ -2,7 +2,6 @@ import express from 'express';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import cors from 'cors';
-import cookieParser from 'cookie-parser';
 import multer from 'multer';
 
 import userRoute from './routes/userRoute.js';
@@ -13,7 +12,6 @@ dotenv.config();
 
 //middlewares
 app.use(cors());
-app.use(cookieParser());
 app.use(express.json());
 
 //connect to mongoDB database
