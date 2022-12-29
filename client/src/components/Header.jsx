@@ -9,7 +9,7 @@ import { logout, reset } from '../redux/auth/authSlice';
 
 import { toNormalStringFromKebabCase } from '../helper/helper';
 
-import userImage from '../utils/relax.jpg';
+import userImage from '../utils/relaxing.jpg';
 
 const Header = ({ searchTerm }) => {
   const navigate = useNavigate();
