@@ -109,7 +109,9 @@ const Login = () => {
 
               <div className='flex justify-between'>
                 <p className='text-xs sm:text-sm text-center text-gray-500 cursor-pointer'>
-                  <span className='undeline'>Forgot password?</span>
+                  <Link to='/'>
+                    <span className='undeline'>Go back to Homepage</span>
+                  </Link>
                 </p>
                 <p className='text-xs sm:text-sm text-center text-gray-500'>
                   No account?

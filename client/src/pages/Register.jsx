@@ -16,10 +16,9 @@ const Register = () => {
     name: '',
     password: '',
     cpassword: '',
-    image: '',
   });
 
-  const { email, name, password, cpassword, image } = registerData;
+  const { email, name, password, cpassword } = registerData;
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -61,10 +60,10 @@ const Register = () => {
         email,
         name,
         password,
-        image,
       };
 
       dispatch(register(userData));
+      console.log(userData);
     }
   };
 
@@ -76,7 +75,10 @@ const Register = () => {
     <>
       <div className='max-w-screen-xl px-4 py-16 mx-auto sm:px-6 lg:px-8'>
         <div className='max-w-lg mx-auto'>
-          <form className='p-8 mt-6 mb-0 space-y-4 '>
+          <form
+            className='p-8 mt-6 mb-0 space-y-4 '
+            encType='multipart/form-data'
+          >
             <h1 className='text-[30px] font-bold mt-5 mb-10 flex justify-center'>
               Register Here
             </h1>
@@ -133,19 +135,6 @@ const Register = () => {
                   placeholder='Confirm password'
                   value={cpassword}
                   onChange={handleChange}
-                />
-              </div>
-            </div>
-            <div>
-              <label className='text-sm font-medium'>Upload Image</label>
-              <div className='relative mt-1'>
-                <input
-                  type='file'
-                  id='image'
-                  name='image'
-                  value={image}
-                  onChange={handleChange}
-                  className='relative block w-full appearance-none p-3  rounded-lg border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm'
                 />
               </div>
             </div>
