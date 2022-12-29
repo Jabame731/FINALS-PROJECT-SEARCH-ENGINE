@@ -20,3 +20,12 @@ export const capitalizeFirstLetterEveryWord = (str) => {
     return letter.toUpperCase();
   });
 };
+
+//shorten sentence
+export const shortenString = (str, maxLength) => {
+  if (str.length > maxLength) {
+    return str.substring(0, maxLength) + '....';
+  } else {
+    return str;
+  }
+};

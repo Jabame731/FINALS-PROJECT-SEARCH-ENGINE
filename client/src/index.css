@@ -10,5 +10,7 @@
   }
   html {
     font-family: 'Poppins', sans-serif;
+    background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    background-image: url('https://www.transparenttextures.com/patterns/grey-jean.png');
   }
 }

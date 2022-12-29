@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { FiLogOut } from 'react-icons/fi';
 
 import { Link, useNavigate } from 'react-router-dom';
@@ -15,10 +15,6 @@ const Header = ({ searchTerm }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const params = new URLSearchParams(searchTerm);
-
-  const pageNumber = params.get('pageNumber');
-
   const { user } = useSelector((state) => state.auth);
 
   const onLogout = () => {
@@ -28,15 +24,12 @@ const Header = ({ searchTerm }) => {
   };
 
   return (
-    <div className='lg:flex lg:items-center lg:justify-between h-[100px] sticky top-0   bg-white'>
+    <div className='lg:flex lg:items-center lg:justify-between h-[100px]  '>
       {searchTerm ? (
         <p className='ml-[100px]'>
           Search Results for:{' '}
           <span className='font-bold'>
-            {toNormalStringFromKebabCase(searchTerm).replace(
-              `&pageNumber=${pageNumber}`,
-              ''
-            )}
+            {toNormalStringFromKebabCase(searchTerm)}
           </span>
         </p>
       ) : (
