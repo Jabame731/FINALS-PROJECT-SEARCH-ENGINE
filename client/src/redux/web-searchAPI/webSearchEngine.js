@@ -5,7 +5,7 @@ export const webSearchAPI = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://contextualwebsearch-websearch-v1.p.rapidapi.com/api',
     prepareHeaders: (headers) => {
-      headers.set('X-RapidAPI-Key', process.env.REACT_APP_NOT_SECRET_CODE);
+      headers.set('X-RapidAPI-Key', process.env.REACT_APP_SECRET_CODE);
 
       return headers;
     },
